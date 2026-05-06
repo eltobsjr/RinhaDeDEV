@@ -474,53 +474,80 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-/* responsive mobile-first overrides for inline-style components */
+/* ===== MOBILE OVERRIDES (< 768px) ===== */
 @media (max-width: 767px) {
-  /* hero */
+
+  /* section vertical padding — 140px/120px is excessive on mobile */
+  section { padding-top: 72px !important; padding-bottom: 56px !important; padding-left: 0 !important; padding-right: 0 !important; }
+
+  /* --- hero --- */
   .hero-stats { grid-template-columns: 1fr 1fr !important; }
-  .hero-stats > div { border-right: none !important; padding: 16px 0 !important; border-bottom: 1px solid var(--line) !important; }
+  .hero-stats > div { padding: 16px 0 !important; border-right: none !important; border-bottom: 1px solid var(--line) !important; }
+  .hero-stats > div:nth-child(odd) { border-right: 1px solid var(--line) !important; }
   .hero-stats > div:nth-last-child(-n+2) { border-bottom: none !important; }
   .hero-ctas { flex-direction: column !important; align-items: stretch !important; }
   .hero-ctas > * { justify-content: center !important; width: 100% !important; }
   .hero-bottom-bar { display: none !important; }
 
-  /* terminal layout: side-by-side -> stack */
+  /* --- terminal --- */
   .term-grid { grid-template-columns: 1fr !important; }
   .term-aside { border-left: 0 !important; border-top: 1px solid var(--line) !important; padding: 24px !important; }
 
-  /* general 2-col -> 1-col */
+  /* --- generic grid helpers --- */
   .grid-2 { grid-template-columns: 1fr !important; }
   .grid-3 { grid-template-columns: 1fr !important; }
   .grid-4 { grid-template-columns: 1fr 1fr !important; }
 
-  /* prizes side-by-side -> stacked */
+  /* --- prizes --- */
   .prize-split { grid-template-columns: 1fr !important; }
+  .prize-left { padding: 28px 22px !important; }
+  .prize-right { border-left: 0 !important; border-top: 1px solid var(--line) !important; }
 
-  /* sections padding */
-  section { padding-left: 0 !important; padding-right: 0 !important; }
-
-  /* card padding mobile */
+  /* --- card --- */
   .card { padding: 20px !important; }
 
-  /* code block readable */
-  .code { padding: 16px 0 16px 0 !important; font-size: 12px !important; }
+  /* --- code block --- */
+  .code { padding: 16px 0 !important; font-size: 12px !important; overflow-x: auto; }
   .code .line { padding: 0 16px !important; gap: 12px !important; }
 
-  /* schedule timeline simpler */
-  .schedule-row { grid-template-columns: 1fr !important; gap: 12px !important; }
+  /* --- schedule table — card layout on mobile --- */
+  .sched-table-head { display: none !important; }
+  .sched-row {
+    grid-template-columns: 1fr auto !important;
+    gap: 6px 12px !important;
+    padding: 20px 16px !important;
+    align-items: start !important;
+  }
+  .sched-cell-date { grid-column: 1 !important; grid-row: 1 !important; font-size: 11px !important; letter-spacing: 0.08em !important; color: var(--ink-muted) !important; }
+  .sched-cell-phase { display: none !important; }
+  .sched-cell-event { grid-column: 1 / -1 !important; grid-row: 2 !important; }
+  .sched-cell-status { grid-column: 2 !important; grid-row: 1 !important; text-align: right !important; }
 
-  /* footer columns */
-  .footer-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
+  /* --- pricing --- */
+  .pricing-grid { grid-template-columns: 1fr !important; }
 
-  /* tweaks panel narrower */
+  /* --- onsite IRL days --- */
+  .onsite-head { grid-template-columns: 1fr !important; gap: 20px !important; align-items: start !important; }
+  .onsite-grid { grid-template-columns: 1fr !important; }
+  .onsite-ticker { grid-template-columns: auto 1fr !important; }
+
+  /* --- footer --- */
+  .footer-top { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .footer-cols { grid-template-columns: 1fr 1fr !important; gap: 20px !important; }
+  .footer-bottom { flex-direction: column !important; gap: 10px !important; align-items: flex-start !important; }
+
+  /* --- tweaks panel --- */
   .tweaks-panel { width: calc(100vw - 24px) !important; max-width: 360px !important; right: 12px !important; }
 }
 
-/* tablet */
+/* ===== TABLET (768px – 1023px) ===== */
 @media (min-width: 768px) and (max-width: 1023px) {
   .grid-3 { grid-template-columns: 1fr 1fr !important; }
   .grid-4 { grid-template-columns: 1fr 1fr !important; }
   .term-grid { grid-template-columns: 1fr !important; }
+  .onsite-head { grid-template-columns: 1fr !important; gap: 24px !important; }
+  .sched-table-head { grid-template-columns: 120px 100px 1fr 120px !important; }
+  .sched-row { grid-template-columns: 120px 100px 1fr 120px !important; }
 }
 
 /* responsive nav-cta toggle: show desktop CTA at >= 1024 */

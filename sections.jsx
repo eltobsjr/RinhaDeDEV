@@ -188,7 +188,7 @@ function Prizes() {
         </div>
 
         <div className="prize-split" style={prizeStyles.heroCard}>
-          <div style={prizeStyles.heroLeft}>
+          <div style={prizeStyles.heroLeft} className="prize-left">
             <div style={prizeStyles.placeBadge}>
               <span style={prizeStyles.placeNum}>01</span>
               <span style={prizeStyles.placeLabel}>// CHAMPION</span>
@@ -220,7 +220,7 @@ function Prizes() {
             </div>
           </div>
 
-          <div style={prizeStyles.heroRight}>
+          <div style={prizeStyles.heroRight} className="prize-right">
             <Trophy3D />
             <div style={prizeStyles.heroRightCaption}>
               <span style={{ color: "var(--accent-3)" }}>●</span>
@@ -451,7 +451,7 @@ function Schedule() {
         </div>
 
         <div style={schedStyles.table}>
-          <div style={schedStyles.tableHead}>
+          <div style={schedStyles.tableHead} className="sched-table-head">
             <div>DATA</div>
             <div>FASE</div>
             <div>EVENTO</div>
@@ -461,16 +461,17 @@ function Schedule() {
             <div
               key={i}
               style={schedStyles.row}
+              className="sched-row"
               onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(var(--accent-rgb), 0.04)")}
               onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
             >
-              <div style={schedStyles.cellDate}>{it.date}</div>
-              <div style={schedStyles.cellPhase}>{it.phase}</div>
-              <div>
+              <div style={schedStyles.cellDate} className="sched-cell-date">{it.date}</div>
+              <div style={schedStyles.cellPhase} className="sched-cell-phase">{it.phase}</div>
+              <div className="sched-cell-event">
                 <div style={schedStyles.cellTitle}>{it.title}</div>
                 <div style={schedStyles.cellDesc}>{it.desc}</div>
               </div>
-              <div style={schedStyles.cellStatus}>
+              <div style={schedStyles.cellStatus} className="sched-cell-status">
                 <span style={{
                   display: "inline-flex", alignItems: "center", gap: 8,
                   color: it.live ? "var(--accent-3)" : "var(--ink-muted)",
@@ -853,13 +854,13 @@ function Footer() {
   return (
     <footer style={footStyles.footer}>
       <div className="container" style={footStyles.inner}>
-        <div style={footStyles.top}>
+        <div style={footStyles.top} className="footer-top">
           <div style={footStyles.brand}>
             <span style={{ color: "var(--accent)" }}>▍</span>
             <span style={{ fontWeight: 600, letterSpacing: "0.06em" }}>RINHA::DEV</span>
             <span style={footStyles.brandTag}>v1.0.0</span>
           </div>
-          <div style={footStyles.cols}>
+          <div style={footStyles.cols} className="footer-cols">
             <div>
               <div style={footStyles.colHead}>EVENTO</div>
               <a style={footStyles.colLink} href="#about">Sobre</a>
@@ -879,7 +880,7 @@ function Footer() {
             </div>
           </div>
         </div>
-        <div style={footStyles.bottom}>
+        <div style={footStyles.bottom} className="footer-bottom">
           <span>© 2026 RINHA::DEV — IFPI PICOS</span>
           <span style={{ display: "flex", gap: 18 }}>
             <span><span style={{ color: "var(--accent-3)" }}>●</span> arena online</span>

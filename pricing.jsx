@@ -21,7 +21,7 @@ function Pricing() {
           </p>
         </div>
 
-        <div style={pStyles.grid}>
+        <div style={pStyles.grid} className="pricing-grid">
           {/* terminal-style price calc */}
           <div className="card" style={pStyles.calcCard}>
             <div style={pStyles.calcHead}>

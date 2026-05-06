@@ -22,7 +22,7 @@ function OnsiteDays() {
     <section id="onsite" style={onsiteStyles.section} ref={ref}>
       <div style={onsiteStyles.bgGrid} />
       <div className="container" style={{ position: "relative", zIndex: 2 }}>
-        <div style={onsiteStyles.head}>
+        <div style={onsiteStyles.head} className="onsite-head">
           <div>
             <span className="eyebrow"><span className="dot" />03 / IRL</span>
             <h2 style={onsiteStyles.title}>
@@ -35,7 +35,7 @@ function OnsiteDays() {
           </p>
         </div>
 
-        <div style={onsiteStyles.grid}>
+        <div style={onsiteStyles.grid} className="onsite-grid">
           <DayCard
             phase="DAY 01"
             date="14 / MAI"
@@ -245,7 +245,7 @@ function Steam({ active }) {
 function FuelTicker({ active }) {
   const items = ["CAFÉ DA MANHÃ", "ALMOÇO", "JANTAR", "LANCHES", "ÁGUA", "REFRIGERANTE", "CAFÉ EXPRESSO", "ENERGÉTICO", "PIZZA", "DOCES"];
   return (
-    <div style={{
+    <div className="onsite-ticker" style={{
       ...onsiteStyles.ticker,
       opacity: active ? 1 : 0,
       transition: "opacity 0.8s ease 0.8s",
