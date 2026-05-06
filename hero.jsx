@@ -1,5 +1,5 @@
 /* global React */
-const { useEffect, useRef } = React;
+const { useEffect, useRef, useState } = React;
 
 function MatrixRain({ enabled = true }) {
   const canvasRef = useRef(null);
@@ -83,9 +83,10 @@ function MatrixRain({ enabled = true }) {
   );
 }
 
-function Hero({ matrix = true }) {
+function Hero({ matrix = true, theme, onThemeChange }) {
   return (
     <section style={heroStyles.section}>
+      <Nav theme={theme} onThemeChange={onThemeChange} />
       <div style={heroStyles.bgWrap}>
         <MatrixRain enabled={matrix} />
         {/* vignette */}
@@ -93,8 +94,6 @@ function Hero({ matrix = true }) {
         {/* grid lines */}
         <div style={heroStyles.grid} />
       </div>
-
-      <Nav />
 
       <div className="container" style={heroStyles.content}>
         <div className="fade-in visible" style={{ animationDelay: "0ms" }}>
@@ -131,7 +130,7 @@ function Hero({ matrix = true }) {
           7 dias. Times de 4. Stack livre. Um vencedor.
         </p>
 
-        <div style={heroStyles.ctas}>
+        <div style={heroStyles.ctas} className="hero-ctas">
           <a href="https://forms.gle/uwK9kgzcdAQxfKtU9" target="_blank" rel="noopener" className="btn">
             Entrar na Arena
             <span className="arrow">→</span>
@@ -145,7 +144,7 @@ function Hero({ matrix = true }) {
         <HeroStats />
       </div>
 
-      <div style={heroStyles.bottomBar}>
+      <div style={heroStyles.bottomBar} className="hero-bottom-bar">
         <span className="mono-tag">SCROLL ↓</span>
         <span className="mono-tag" style={{ color: "var(--ink-muted)" }}>
           arena.status: <span style={{ color: "var(--accent-3)" }}>online</span>
@@ -155,28 +154,78 @@ function Hero({ matrix = true }) {
   );
 }
 
-function Nav() {
+function Nav({ theme = "dark", onThemeChange }) {
+  const [open, setOpen] = useState(false);
+  const cycle = () => {
+    const order = ["dark", "light", "hc"];
+    const next = order[(order.indexOf(theme) + 1) % order.length];
+    onThemeChange && onThemeChange(next);
+  };
+  const labels = { dark: "DARK", light: "LIGHT", hc: "HC" };
+  const icons = {
+    dark: (
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    ),
+    light: (
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    ),
+    hc: (
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg>
+    ),
+  };
+  const close = () => setOpen(false);
   return (
-    <nav style={navStyles.nav}>
-      <div className="container" style={navStyles.inner}>
-        <a href="#" style={navStyles.brand}>
-          <span style={navStyles.brandMark}>▍</span>
-          <span style={{ fontWeight: 600, letterSpacing: "0.06em" }}>RINHA::DEV</span>
-          <span style={navStyles.brandTag}>v1</span>
-        </a>
-        <div style={navStyles.links}>
-          <a href="#about" style={navStyles.link}>./sobre</a>
-          <a href="#how" style={navStyles.link}>./como-funciona</a>
-          <a href="#prizes" style={navStyles.link}>./premiacao</a>
-          <a href="#schedule" style={navStyles.link}>./cronograma</a>
-          <a href="#faq" style={navStyles.link}>./faq</a>
+    <>
+      <nav style={navStyles.nav}>
+        <div className="container" style={navStyles.inner}>
+          <a href="#" style={navStyles.brand}>
+            <span style={navStyles.brandMark}>▍</span>
+            <span style={{ fontWeight: 600, letterSpacing: "0.06em" }}>RINHA::DEV</span>
+            <span className="brand-tag-hide" style={navStyles.brandTag}>v1</span>
+          </a>
+          <div className="nav-links" style={navStyles.links}>
+            <a href="#about" style={navStyles.link}>./sobre</a>
+            <a href="#how" style={navStyles.link}>./como-funciona</a>
+            <a href="#prizes" style={navStyles.link}>./premiacao</a>
+            <a href="#schedule" style={navStyles.link}>./cronograma</a>
+            <a href="#faq" style={navStyles.link}>./faq</a>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <button
+              onClick={cycle}
+              title={`Tema: ${labels[theme]} — clique para alternar`}
+              aria-label="Alternar tema"
+              style={navStyles.themeBtn}
+            >
+              {icons[theme]}
+              <span className="theme-label" style={{ fontSize: 10, letterSpacing: "0.14em" }}>{labels[theme]}</span>
+            </button>
+            <a className="nav-cta-desktop" href="https://forms.gle/uwK9kgzcdAQxfKtU9" target="_blank" rel="noopener" style={{ padding: "10px 16px", fontSize: 11, clipPath: "none", display: "none", alignItems: "center", gap: 8, background: "var(--accent)", color: "var(--invert-text)", fontFamily: "var(--font-mono)", fontWeight: 500, letterSpacing: "0.04em", textTransform: "uppercase", border: "1px solid var(--accent)" }}>
+              inscrever_se()
+              <span>→</span>
+            </a>
+            <button
+              className="nav-hamburger hamburger"
+              aria-label="Menu"
+              onClick={() => setOpen(o => !o)}
+              style={{ display: "none" }}
+            >
+              <span /><span /><span />
+            </button>
+          </div>
         </div>
-        <a href="https://forms.gle/uwK9kgzcdAQxfKtU9" target="_blank" rel="noopener" className="btn" style={{ padding: "10px 16px", fontSize: 11, clipPath: "none" }}>
-          inscrever_se()
-          <span className="arrow">→</span>
+      </nav>
+      <div className={`mobile-menu${open ? " open" : ""}`} aria-hidden={!open}>
+        <a href="#about" onClick={close}>./sobre</a>
+        <a href="#how" onClick={close}>./como-funciona</a>
+        <a href="#prizes" onClick={close}>./premiacao</a>
+        <a href="#schedule" onClick={close}>./cronograma</a>
+        <a href="#faq" onClick={close}>./faq</a>
+        <a className="cta-mobile" href="https://forms.gle/uwK9kgzcdAQxfKtU9" target="_blank" rel="noopener" onClick={close}>
+          inscrever_se() →
         </a>
       </div>
-    </nav>
+    </>
   );
 }
 
@@ -188,7 +237,7 @@ function HeroStats() {
     { v: "01", l: "edição inaugural" },
   ];
   return (
-    <div style={heroStyles.stats}>
+    <div style={heroStyles.stats} className="hero-stats">
       {items.map((s, i) => (
         <div key={i} style={heroStyles.stat}>
           <div style={heroStyles.statV}>{s.v}</div>
@@ -205,7 +254,7 @@ const navStyles = {
     top: 0, left: 0, right: 0,
     zIndex: 30,
     backdropFilter: "blur(10px)",
-    background: "rgba(5, 5, 5, 0.6)",
+    background: "var(--nav-bg)",
     borderBottom: "1px solid var(--line)",
   },
   inner: {
@@ -237,6 +286,19 @@ const navStyles = {
     color: "var(--ink-dim)",
   },
   link: { transition: "color 0.15s", padding: "6px 0" },
+  themeBtn: {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 8,
+    padding: "8px 12px",
+    fontFamily: "var(--font-mono)",
+    fontWeight: 500,
+    color: "var(--ink-dim)",
+    border: "1px solid var(--line-2)",
+    cursor: "pointer",
+    background: "transparent",
+    transition: "all 0.15s ease",
+  },
 };
 
 const heroStyles = {
@@ -258,14 +320,13 @@ const heroStyles = {
   vignette: {
     position: "absolute",
     inset: 0,
-    background:
-      "radial-gradient(ellipse at center, transparent 30%, rgba(5,5,5,0.85) 80%)",
+    background: "var(--hero-vignette)",
   },
   grid: {
     position: "absolute",
     inset: 0,
     backgroundImage:
-      "linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)",
+      "linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px)",
     backgroundSize: "48px 48px",
     maskImage: "radial-gradient(ellipse at center, black 40%, transparent 75%)",
   },
@@ -293,7 +354,7 @@ const heroStyles = {
     flexDirection: "column",
     gap: 4,
   },
-  titleLine: { color: "#fff" },
+  titleLine: { color: "var(--ink)" },
   titleSep: {
     display: "flex",
     alignItems: "center",
@@ -349,7 +410,7 @@ const heroStyles = {
     fontFamily: "var(--font-display)",
     fontSize: 36,
     fontWeight: 600,
-    color: "#fff",
+    color: "var(--ink)",
     letterSpacing: "-0.03em",
     lineHeight: 1,
     marginBottom: 6,

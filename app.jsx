@@ -5,7 +5,8 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "accent": "purple",
   "glitch": "subtle",
   "scanlines": true,
-  "matrix": true
+  "matrix": true,
+  "theme": "dark"
 }/*EDITMODE-END*/;
 
 const ACCENTS = {
@@ -27,13 +28,14 @@ function App() {
     root.style.setProperty("--accent-rgb", a.rgb);
     root.style.setProperty("--glitch-intensity", String(GLITCH[tweaks.glitch] ?? 0.5));
     root.style.setProperty("--scanline-opacity", tweaks.scanlines ? "0.06" : "0");
+    root.setAttribute("data-theme", tweaks.theme || "dark");
   }, [tweaks]);
 
   return (
     <>
       {!booted && <Boot onDone={() => setBooted(true)} />}
       <div style={{ opacity: booted ? 1 : 0, transition: "opacity 0.4s ease" }}>
-        <Hero matrix={tweaks.matrix} />
+        <Hero matrix={tweaks.matrix} theme={tweaks.theme} onThemeChange={(v) => setTweak("theme", v)} />
         <Terminal />
         <OnsiteDays />
         <HowItWorks />
@@ -47,6 +49,18 @@ function App() {
       </div>
 
       <TweaksPanel title="TWEAKS">
+        <TweakSection label="Tema">
+          <TweakRadio
+            label="Modo"
+            value={tweaks.theme}
+            onChange={(v) => setTweak("theme", v)}
+            options={[
+              { value: "dark",  label: "Escuro" },
+              { value: "light", label: "Claro" },
+              { value: "hc",    label: "Alto Contraste" },
+            ]}
+          />
+        </TweakSection>
         <TweakSection label="Acento">
           <TweakRadio
             label="Cor"

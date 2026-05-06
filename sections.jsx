@@ -96,7 +96,7 @@ const howStyles = {
     letterSpacing: "-0.04em",
     lineHeight: 1.02,
     margin: 0,
-    color: "#fff",
+    color: "var(--ink)",
   },
   timeline: {
     position: "relative",
@@ -148,7 +148,7 @@ const howStyles = {
     fontWeight: 600,
     letterSpacing: "-0.02em",
     margin: 0,
-    color: "#fff",
+    color: "var(--ink)",
   },
   rowD: {
     fontFamily: "var(--font-mono)",
@@ -187,7 +187,7 @@ function Prizes() {
           </p>
         </div>
 
-        <div style={prizeStyles.heroCard}>
+        <div className="prize-split" style={prizeStyles.heroCard}>
           <div style={prizeStyles.heroLeft}>
             <div style={prizeStyles.placeBadge}>
               <span style={prizeStyles.placeNum}>01</span>
@@ -321,7 +321,7 @@ const prizeStyles = {
     letterSpacing: "-0.04em",
     lineHeight: 1,
     margin: 0,
-    color: "#fff",
+    color: "var(--ink)",
   },
   lede: {
     fontFamily: "var(--font-mono)",
@@ -391,7 +391,7 @@ const prizeStyles = {
     fontFamily: "var(--font-display)",
     fontSize: "clamp(96px, 14vw, 180px)",
     fontWeight: 700,
-    color: "#fff",
+    color: "var(--ink)",
     letterSpacing: "-0.06em",
     lineHeight: 0.9,
     textShadow: "0 0 60px rgba(var(--accent-rgb), 0.5)",
@@ -418,7 +418,7 @@ const prizeStyles = {
     fontFamily: "var(--font-display)",
     fontSize: 18,
     fontWeight: 500,
-    color: "#fff",
+    color: "var(--ink)",
     letterSpacing: "-0.01em",
     marginBottom: 4,
   },
@@ -501,7 +501,7 @@ const schedStyles = {
     letterSpacing: "-0.04em",
     lineHeight: 1.02,
     margin: 0,
-    color: "#fff",
+    color: "var(--ink)",
   },
   table: { borderTop: "1px solid var(--line-2)" },
   tableHead: {
@@ -527,7 +527,7 @@ const schedStyles = {
   cellDate: {
     fontFamily: "var(--font-mono)",
     fontSize: 13,
-    color: "#fff",
+    color: "var(--ink)",
     letterSpacing: "0.04em",
   },
   cellPhase: {
@@ -540,7 +540,7 @@ const schedStyles = {
     fontFamily: "var(--font-display)",
     fontSize: 18,
     fontWeight: 500,
-    color: "#fff",
+    color: "var(--ink)",
     letterSpacing: "-0.01em",
     marginBottom: 4,
   },
@@ -630,7 +630,7 @@ const rulesStyles = {
     letterSpacing: "-0.04em",
     lineHeight: 1.02,
     margin: 0,
-    color: "#fff",
+    color: "var(--ink)",
   },
   code: { maxWidth: 880 },
 };
@@ -709,7 +709,7 @@ const faqStyles = {
     letterSpacing: "-0.03em",
     lineHeight: 1.05,
     margin: 0,
-    color: "#fff",
+    color: "var(--ink)",
     maxWidth: 760,
   },
   list: { display: "flex", flexDirection: "column", gap: 0 },
@@ -736,7 +736,7 @@ const faqStyles = {
     fontFamily: "var(--font-display)",
     fontSize: 20,
     fontWeight: 500,
-    color: "#fff",
+    color: "var(--ink)",
     letterSpacing: "-0.01em",
   },
   qIcon: {
@@ -768,7 +768,7 @@ function FinalCTA() {
       <div style={ctaStyles.bgGrid} />
       <div style={ctaStyles.bgGlow} />
       <div className="container" style={{ position: "relative", zIndex: 2 }}>
-        <div style={ctaStyles.inner}>
+        <div className="cta-inner" style={ctaStyles.inner}>
           <span className="eyebrow"><span className="dot" />FINAL_BOSS</span>
           <h2 style={ctaStyles.title}>
             <span className="glitch" data-text="Você aguenta">Você aguenta</span><br />
@@ -781,7 +781,7 @@ function FinalCTA() {
               <span className="arrow">→</span>
             </a>
             <span style={ctaStyles.note}>
-              <span style={{ color: "var(--accent-3)" }}>●</span> kick-off em <span style={{ color: "#fff" }}>14 / MAI / 2026</span>
+              <span style={{ color: "var(--accent-3)" }}>●</span> kick-off em <span style={{ color: "var(--ink)" }}>14 / MAI / 2026</span>
             </span>
           </div>
         </div>
@@ -822,7 +822,7 @@ const ctaStyles = {
     letterSpacing: "-0.05em",
     lineHeight: 0.95,
     margin: "28px 0 24px",
-    color: "#fff",
+    color: "var(--ink)",
   },
   sub: {
     fontFamily: "var(--font-mono)",

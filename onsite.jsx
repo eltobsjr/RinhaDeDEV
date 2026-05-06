@@ -309,7 +309,7 @@ const onsiteStyles = {
     letterSpacing: "-0.04em",
     lineHeight: 1.02,
     margin: "16px 0 0",
-    color: "#fff",
+    color: "var(--ink)",
   },
   lede: {
     fontFamily: "var(--font-mono)",
@@ -319,7 +319,7 @@ const onsiteStyles = {
     maxWidth: 460,
     margin: 0,
   },
-  b: { color: "#fff" },
+  b: { color: "var(--ink)" },
   grid: {
     display: "grid",
     gridTemplateColumns: "1fr 1.4fr 1fr",
@@ -349,7 +349,7 @@ const onsiteStyles = {
     fontFamily: "var(--font-display)",
     fontSize: 56,
     fontWeight: 700,
-    color: "#fff",
+    color: "var(--ink)",
     letterSpacing: "-0.04em",
     lineHeight: 1,
     marginBottom: 12,
@@ -432,7 +432,7 @@ const onsiteStyles = {
     fontWeight: 700,
     letterSpacing: "-0.03em",
     lineHeight: 0.95,
-    color: "#fff",
+    color: "var(--ink)",
     marginBottom: 12,
   },
   foodLabelSub: {

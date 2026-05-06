@@ -72,7 +72,7 @@ function Terminal() {
           <span style={{ color: "var(--ink-muted)" }}>:</span>
           <span style={{ color: "var(--accent-2)" }}>~/picos</span>
           <span style={{ color: "var(--ink-muted)", marginRight: 8 }}>$</span>
-          <span style={{ color: "#fff" }}>{text}</span>
+          <span style={{ color: "var(--ink)" }}>{text}</span>
         </div>
       );
     if (item.type === "h")

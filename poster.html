@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<title>Rinha de Dev — Poster A4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #d8d8d8; }
+body {
+  font-family: "JetBrains Mono", monospace;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+
+/* toolbar */
+.toolbar {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.toolbar button {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 10px 18px;
+  background: #050505;
+  color: #fff;
+  border: 0;
+  cursor: pointer;
+  font-weight: 600;
+}
+.toolbar button.alt { background: #fff; color: #050505; border: 1px solid #050505; }
+.toolbar .switch {
+  display: inline-flex;
+  border: 1px solid #050505;
+}
+.toolbar .switch button {
+  background: #fff;
+  color: #050505;
+  font-weight: 500;
+  border-right: 1px solid #050505;
+}
+.toolbar .switch button:last-child { border-right: 0; }
+.toolbar .switch button.active { background: #050505; color: #fff; }
+
+/* A4 = 210x297mm = 794x1123 px @ 96dpi */
+.poster {
+  width: 794px;
+  height: 1123px;
+  position: relative;
+  overflow: hidden;
+  background: #ffffff;
+  color: #050505;
+  page-break-after: always;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  padding: 56px 56px 48px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* corner brackets */
+.bracket {
+  position: absolute;
+  width: 32px; height: 32px;
+  z-index: 5;
+}
+.bracket.tl { top: 28px; left: 28px; border-top: 2px solid #050505; border-left: 2px solid #050505; }
+.bracket.tr { top: 28px; right: 28px; border-top: 2px solid #050505; border-right: 2px solid #050505; }
+.bracket.bl { bottom: 28px; left: 28px; border-bottom: 2px solid #050505; border-left: 2px solid #050505; }
+.bracket.br { bottom: 28px; right: 28px; border-bottom: 2px solid #050505; border-right: 2px solid #050505; }
+
+/* header */
+.head {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: #050505;
+  font-weight: 600;
+  padding-bottom: 18px;
+  border-bottom: 2px solid #050505;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+.brand .bar { color: #7c3aed; font-size: 22px; line-height: 0; }
+.dot-live {
+  width: 8px; height: 8px; border-radius: 999px;
+  background: #050505;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+/* hero block — title + qr side by side */
+.hero {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: 1fr 240px;
+  gap: 32px;
+  align-items: center;
+  margin-top: 48px;
+}
+.hero-left .eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: #050505;
+  font-weight: 600;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
+  padding: 6px 0;
+}
+.hero-left .eyebrow::before {
+  content: "";
+  width: 28px; height: 2px;
+  background: #050505;
+}
+.title {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 0.88;
+  color: #050505;
+  font-size: 110px;
+}
+.title .ac { color: #7c3aed; }
+.title .small {
+  display: block;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 14px;
+  letter-spacing: 0.4em;
+  color: #050505;
+  font-weight: 500;
+  margin: 14px 0 4px;
+}
+.tagline {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  color: #050505;
+  margin-top: 24px;
+  letter-spacing: -0.01em;
+}
+.tagline .ac { color: #7c3aed; font-weight: 700; }
+
+.qr-wrap { display: flex; flex-direction: column; align-items: center; }
+.qr-card {
+  background: #fff;
+  padding: 12px;
+  width: 240px;
+  height: 240px;
+  position: relative;
+  border: 2px solid #050505;
+}
+.qr-card img { width: 100%; height: 100%; display: block; image-rendering: pixelated; }
+.qr-label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-align: center;
+  color: #050505;
+  font-weight: 600;
+  margin-top: 14px;
+}
+
+/* date strip */
+.dates {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border-top: 2px solid #050505;
+  border-bottom: 2px solid #050505;
+  margin-top: 56px;
+}
+.dates .cell { padding: 22px 24px; border-right: 1px solid #050505; }
+.dates .cell:last-child { border-right: 0; }
+.dates .lab {
+  font-size: 10px;
+  color: #050505;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  margin-bottom: 8px;
+}
+.dates .val {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: #050505;
+  letter-spacing: -0.02em;
+}
+.dates .val .ac { color: #7c3aed; }
+.dates .sub { font-size: 11px; color: #050505; margin-top: 4px; letter-spacing: 0.04em; font-weight: 500; }
+
+/* info strip */
+.info {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 24px;
+  margin-top: 24px;
+  align-content: start;
+}
+.info .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 14px 0;
+  border-bottom: 1px solid #050505;
+  font-size: 13px;
+}
+.info .row .k {
+  color: #050505;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 600;
+}
+.info .row .v {
+  color: #050505;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+}
+.info .row .v.ac { color: #7c3aed; }
+
+/* big url block */
+.url-block {
+  position: relative;
+  z-index: 3;
+  margin-top: 24px;
+  padding: 16px 22px;
+  border: 2px solid #050505;
+  background: #050505;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.url-block .prompt { color: #7c3aed; font-size: 14px; font-weight: 700; }
+.url-block .url {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 16px;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+  word-break: break-all;
+  font-weight: 500;
+}
+
+/* footer */
+.foot {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #050505;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  padding-top: 16px;
+  margin-top: 18px;
+  border-top: 1px solid #050505;
+}
+
+/* =============== DARK MODE (alt) =============== */
+body.dark { background: #2a2a2a; }
+body.dark .poster {
+  background: #050505;
+  color: #ffffff;
+}
+body.dark .poster .bracket.tl,
+body.dark .poster .bracket.tr,
+body.dark .poster .bracket.bl,
+body.dark .poster .bracket.br { border-color: #7c3aed; }
+body.dark .head { color: #fff; border-bottom-color: rgba(255,255,255,0.4); }
+body.dark .brand { color: #fff; }
+body.dark .dot-live { background: #00ff9f; box-shadow: 0 0 10px #00ff9f; }
+body.dark .hero-left .eyebrow { color: #fff; }
+body.dark .hero-left .eyebrow::before { background: #7c3aed; }
+body.dark .title { color: #fff; }
+body.dark .title .small { color: #8a8a93; }
+body.dark .tagline { color: #fff; }
+body.dark .qr-card { border-color: #7c3aed; }
+body.dark .qr-label { color: #00ff9f; }
+body.dark .dates { border-color: rgba(255,255,255,0.4); }
+body.dark .dates .cell { border-right-color: rgba(255,255,255,0.1); }
+body.dark .dates .lab { color: #8a8a93; }
+body.dark .dates .val { color: #fff; }
+body.dark .dates .sub { color: #8a8a93; }
+body.dark .info .row { border-bottom-color: rgba(255,255,255,0.12); }
+body.dark .info .row .k { color: #8a8a93; }
+body.dark .info .row .v { color: #fff; }
+body.dark .url-block { background: #7c3aed; border-color: #7c3aed; }
+body.dark .url-block .prompt { color: #fff; }
+body.dark .url-block .url { color: #fff; }
+body.dark .foot { color: #8a8a93; border-top-color: rgba(255,255,255,0.12); }
+</style>
+</head>
+<body class="light">
+
+<div class="toolbar">
+  <div class="switch" role="tablist">
+    <button id="btn-light" class="active" onclick="setTheme('light')">Tema Claro (Print)</button>
+    <button id="btn-dark" onclick="setTheme('dark')">Tema Escuro</button>
+  </div>
+  <button onclick="window.print()">Imprimir / Salvar PDF</button>
+  <button class="alt" onclick="exportPNG('p1', 'rinha-de-dev-site.png')">Exportar Poster 1 (PNG)</button>
+  <button class="alt" onclick="exportPNG('p2', 'rinha-de-dev-inscricao.png')">Exportar Poster 2 (PNG)</button>
+</div>
+
+<!-- ============== POSTER 1 — SITE ============== -->
+<div class="poster" id="p1">
+  <span class="bracket tl"></span>
+  <span class="bracket tr"></span>
+  <span class="bracket bl"></span>
+  <span class="bracket br"></span>
+
+  <div class="head">
+    <div class="brand"><span class="bar">▍</span> RINHA::DEV</div>
+    <div><span class="dot-live"></span>EDITION 01 · IFPI PICOS</div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-left">
+      <span class="eyebrow">HACKATHON · FÁBRICA DE INTEGRAÇÃO</span>
+      <h1 class="title">
+        RINHA
+        <span class="small">— DE —</span>
+        <span class="ac">DEV.</span>
+      </h1>
+      <div class="tagline">Onde código vira <span class="ac">combate.</span></div>
+    </div>
+    <div class="qr-wrap">
+      <div class="qr-card"><img src="assets/qr-site.png" alt="QR para o site" /></div>
+      <div class="qr-label">› escaneie · veja tudo</div>
+    </div>
+  </div>
+
+  <div class="dates">
+    <div class="cell">
+      <div class="lab">// KICK-OFF</div>
+      <div class="val">14<span class="ac"> MAI</span></div>
+      <div class="sub">presencial · ifpi picos</div>
+    </div>
+    <div class="cell">
+      <div class="lab">// DEV WEEK</div>
+      <div class="val">7<span class="ac"> dias</span></div>
+      <div class="sub">14 → 21 · stack livre</div>
+    </div>
+    <div class="cell">
+      <div class="lab">// FINAL</div>
+      <div class="val">21<span class="ac"> MAI</span></div>
+      <div class="sub">pitch + premiação</div>
+    </div>
+  </div>
+
+  <div class="info">
+    <div class="row"><span class="k">team</span><span class="v">4–6 devs</span></div>
+    <div class="row"><span class="k">stack</span><span class="v">livre</span></div>
+    <div class="row"><span class="k">fuel</span><span class="v">comida + bebida</span></div>
+    <div class="row"><span class="k">prize</span><span class="v ac">R$ 50 + troféu 3D</span></div>
+  </div>
+
+  <div class="url-block">
+    <span class="prompt">›</span>
+    <span class="url">eltobsjr.github.io/RinhaDeDEV</span>
+  </div>
+
+  <div class="foot">
+    <span>© 2026 RINHA::DEV — IFPI PICOS</span>
+    <span>arena.status: online</span>
+  </div>
+</div>
+
+<!-- ============== POSTER 2 — INSCRIÇÃO ============== -->
+<div class="poster" id="p2">
+  <span class="bracket tl"></span>
+  <span class="bracket tr"></span>
+  <span class="bracket bl"></span>
+  <span class="bracket br"></span>
+
+  <div class="head">
+    <div class="brand"><span class="bar">▍</span> RINHA::DEV</div>
+    <div><span class="dot-live"></span>SIGN-UPS OPEN</div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-left">
+      <span class="eyebrow">INSCRIÇÕES ABERTAS</span>
+      <h1 class="title">
+        SIGN
+        <span class="small">— UP —</span>
+        <span class="ac">UP.</span>
+      </h1>
+      <div class="tagline">Você aguenta a <span class="ac">pressão?</span></div>
+    </div>
+    <div class="qr-wrap">
+      <div class="qr-card"><img src="assets/qr-form.png" alt="QR para inscrição" /></div>
+      <div class="qr-label">› aponte · inscreva-se</div>
+    </div>
+  </div>
+
+  <div class="dates">
+    <div class="cell">
+      <div class="lab">// PRICE</div>
+      <div class="val">R$<span class="ac"> 5</span></div>
+      <div class="sub">por dev · cobre 2 dias</div>
+    </div>
+    <div class="cell">
+      <div class="lab">// TEAM</div>
+      <div class="val">4<span class="ac"> a 6</span></div>
+      <div class="sub">+1 admin opcional p/ pitch</div>
+    </div>
+    <div class="cell">
+      <div class="lab">// PRIZE</div>
+      <div class="val">R$<span class="ac"> 50</span></div>
+      <div class="sub">+ troféu impresso 3D</div>
+    </div>
+  </div>
+
+  <div class="info">
+    <div class="row"><span class="k">stack</span><span class="v">livre · realista</span></div>
+    <div class="row"><span class="k">format</span><span class="v">presencial + remoto</span></div>
+    <div class="row"><span class="k">kick-off</span><span class="v">14 MAI</span></div>
+    <div class="row"><span class="k">final</span><span class="v">21 MAI</span></div>
+  </div>
+
+  <div class="url-block">
+    <span class="prompt">› POST /signup</span>
+    <span class="url">escaneie o QR para se inscrever</span>
+  </div>
+
+  <div class="foot">
+    <span>© 2026 RINHA::DEV — IFPI PICOS · FÁBRICA DE INTEGRAÇÃO</span>
+    <span>R$ 5 / dev</span>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script>
+function setTheme(t) {
+  document.body.classList.toggle("dark", t === "dark");
+  document.body.classList.toggle("light", t === "light");
+  document.getElementById("btn-light").classList.toggle("active", t === "light");
+  document.getElementById("btn-dark").classList.toggle("active", t === "dark");
+}
+
+async function exportPNG(id, filename) {
+  const node = document.getElementById(id);
+  const isDark = document.body.classList.contains("dark");
+  const canvas = await html2canvas(node, {
+    backgroundColor: isDark ? "#050505" : "#ffffff",
+    scale: 3,
+    useCORS: true,
+    logging: false,
+  });
+  canvas.toBlob((blob) => {
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  }, "image/png");
+}
+</script>
+
+</body>
+</html>
