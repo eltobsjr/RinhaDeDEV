@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<title>Rinha de Dev — Cartão Lembrancinha (8× por A4)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+@page { size: A4 portrait; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { background: #d8d8d8; }
+
+body {
+  font-family: "JetBrains Mono", monospace;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+
+/* ── toolbar (idêntica ao poster.html) ── */
+.toolbar {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.toolbar button {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 10px 18px;
+  background: #050505;
+  color: #fff;
+  border: 0;
+  cursor: pointer;
+  font-weight: 600;
+}
+.toolbar button.alt { background: #fff; color: #050505; border: 1px solid #050505; }
+.toolbar .switch { display: inline-flex; border: 1px solid #050505; }
+.toolbar .switch button {
+  background: #fff; color: #050505;
+  font-weight: 500;
+  border-right: 1px solid #050505;
+}
+.toolbar .switch button:last-child { border-right: 0; }
+.toolbar .switch button.active { background: #050505; color: #fff; }
+
+/* ─────────────────────────────────────
+   FOLHA A4  794 × 1123 px @ 96 dpi
+   2 colunas × 4 linhas = 8 cartões
+   Cada cartão ≈ 369 × 259 px  ≈  97 × 68 mm
+───────────────────────────────────── */
+.sheet {
+  width: 794px;
+  height: 1123px;
+  background: #fafafa;
+  position: relative;
+  padding: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(4, 1fr);
+  gap: 0;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.28);
+  page-break-after: always;
+}
+
+/* ── cartão individual ── */
+.card {
+  background: #fff;
+  color: #050505;
+  position: relative;
+  padding: 15px 17px 13px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* guia de corte tracejado nas bordas internas */
+  border-right: 1px dashed #c8c8c8;
+  border-bottom: 1px dashed #c8c8c8;
+}
+/* remove borda na coluna direita */
+.card:nth-child(2n)  { border-right: none; }
+/* remove borda na última linha */
+.card:nth-child(n+7) { border-bottom: none; }
+
+/* ── marcadores de canto (corner brackets) ── */
+.bk { position: absolute; width: 12px; height: 12px; z-index: 5; }
+.bk.tl { top: 9px;    left: 9px;    border-top: 1.5px solid #050505; border-left:  1.5px solid #050505; }
+.bk.tr { top: 9px;    right: 9px;   border-top: 1.5px solid #050505; border-right: 1.5px solid #050505; }
+.bk.bl { bottom: 9px; left: 9px;    border-bottom: 1.5px solid #050505; border-left:  1.5px solid #050505; }
+.bk.br { bottom: 9px; right: 9px;   border-bottom: 1.5px solid #050505; border-right: 1.5px solid #050505; }
+
+/* ── cabeçalho ── */
+.c-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 9px;
+  border-bottom: 1.5px solid #050505;
+  flex-shrink: 0;
+}
+.c-brand {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+.c-brand .bar { color: #7c3aed; font-size: 19px; line-height: 1; }
+.c-edition {
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.dot-sm {
+  width: 6px; height: 6px;
+  border-radius: 999px;
+  background: #050505;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* ── corpo ── */
+.c-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 9px 0 7px;
+  min-height: 0;
+}
+.c-left { display: flex; flex-direction: column; }
+
+.c-title {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 800;
+  font-size: 48px;
+  letter-spacing: -0.05em;
+  line-height: 0.88;
+  color: #050505;
+}
+.c-title .ac  { color: #7c3aed; }
+.c-title .sep {
+  display: block;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 8px;
+  letter-spacing: 0.36em;
+  color: #bbb;
+  font-weight: 500;
+  margin: 7px 0 4px;
+}
+.c-tagline {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 10.5px;
+  font-weight: 500;
+  color: #666;
+  margin-top: 11px;
+  letter-spacing: -0.01em;
+  line-height: 1.45;
+}
+
+
+
+/* ── faixa de datas ── */
+.c-dates {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid #050505;
+  border-bottom: 1px solid #050505;
+  flex-shrink: 0;
+}
+.c-dates .dc {
+  padding: 5px 6px;
+  border-right: 1px solid #050505;
+}
+.c-dates .dc:last-child { border-right: 0; }
+.c-dates .dc .dl {
+  font-size: 6.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: #aaa;
+  margin-bottom: 3px;
+  text-transform: uppercase;
+}
+.c-dates .dc .dv {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  color: #050505;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.c-dates .dc .dv .ac { color: #7c3aed; }
+
+/* ── rodapé ── */
+.c-foot {
+  padding-top: 7px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-shrink: 0;
+}
+.c-url {
+  font-size: 7.5px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: #7c3aed;
+}
+.c-next {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 8px;
+  font-weight: 600;
+  color: #aaa;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════
+   TEMA ESCURO
+═══════════════════════════════════ */
+body.dark { background: #222; }
+body.dark .sheet { background: #111; }
+body.dark .card { background: #050505; color: #fff; border-color: #2a2a2a; }
+
+body.dark .bk.tl,
+body.dark .bk.tr,
+body.dark .bk.bl,
+body.dark .bk.br { border-color: #7c3aed; }
+
+body.dark .c-head   { border-bottom-color: rgba(255,255,255,0.15); }
+body.dark .c-brand  { color: #fff; }
+body.dark .c-edition { color: rgba(255,255,255,0.45); }
+body.dark .dot-sm   { background: #00ff9f; box-shadow: 0 0 8px rgba(0,255,159,0.65); }
+
+body.dark .c-title  { color: #fff; }
+body.dark .c-title .sep { color: #333; }
+body.dark .c-tagline { color: #55555e; }
+
+
+body.dark .c-dates { border-color: rgba(255,255,255,0.12); }
+body.dark .c-dates .dc { border-right-color: rgba(255,255,255,0.08); }
+body.dark .c-dates .dc .dl { color: #3a3a3a; }
+body.dark .c-dates .dc .dv { color: #fff; }
+
+body.dark .c-next  { color: #3a3a3a; }
+body.dark .c-url   { color: #8b5cf6; }
+
+/* ═══════════════════════════════════
+   IMPRESSÃO
+═══════════════════════════════════ */
+@media print {
+  body { background: #fff !important; padding: 0 !important; gap: 0 !important; }
+  .toolbar { display: none !important; }
+  .sheet   { box-shadow: none !important; }
+}
+</style>
+</head>
+<body class="light">
+
+<div class="toolbar">
+  <div class="switch" role="tablist">
+    <button id="btn-light" class="active" onclick="setTheme('light')">Tema Claro (Print)</button>
+    <button id="btn-dark"                 onclick="setTheme('dark')">Tema Escuro</button>
+  </div>
+  <button onclick="window.print()">Imprimir / Salvar PDF</button>
+  <button class="alt" onclick="exportPNG()">Exportar PNG</button>
+</div>
+
+<div class="sheet" id="sheet">
+  <!-- 8 cartões injetados via JS -->
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script>
+/* ── template de 1 cartão ── */
+const CARD = `
+  <span class="bk tl"></span>
+  <span class="bk tr"></span>
+  <span class="bk bl"></span>
+  <span class="bk br"></span>
+
+  <div class="c-head">
+    <div class="c-brand"><span class="bar">▍</span>RINHA::DEV</div>
+    <div class="c-edition"><span class="dot-sm"></span>EDITION 01 · IFPI PICOS</div>
+  </div>
+
+  <div class="c-body">
+    <div class="c-left">
+      <div class="c-title">
+        OBRIGADO<span class="ac">!</span>
+      </div>
+      <div class="c-tagline">
+        Pela sua presença, energia e código.<br>
+        Foi incrível ter você aqui. Até a próxima!
+      </div>
+    </div>
+  </div>
+
+  <div class="c-dates">
+    <div class="dc">
+      <div class="dl">// edition</div>
+      <div class="dv"><span class="ac">01</span></div>
+    </div>
+    <div class="dc">
+      <div class="dl">// local</div>
+      <div class="dv">IFPI<span class="ac"> PI</span></div>
+    </div>
+    <div class="dc">
+      <div class="dl">// maio</div>
+      <div class="dv">14<span class="ac">→21</span></div>
+    </div>
+  </div>
+
+  <div class="c-foot">
+    <span class="c-next">// até a próxima</span>
+  </div>
+`;
+
+/* injeta 8 cópias */
+const sheet = document.getElementById('sheet');
+for (let i = 0; i < 8; i++) {
+  const div = document.createElement('div');
+  div.className = 'card';
+  div.innerHTML = CARD;
+  sheet.appendChild(div);
+}
+
+/* ── troca de tema ── */
+function setTheme(t) {
+  const dark = t === 'dark';
+  document.body.classList.toggle('dark',  dark);
+  document.body.classList.toggle('light', !dark);
+  document.getElementById('btn-light').classList.toggle('active', !dark);
+  document.getElementById('btn-dark').classList.toggle('active',  dark);
+}
+
+/* ── exportar PNG (mesmo helper do poster.html) ── */
+async function exportPNG() {
+  const node   = document.getElementById('sheet');
+  const isDark = document.body.classList.contains('dark');
+  const canvas = await html2canvas(node, {
+    backgroundColor: isDark ? '#050505' : '#ffffff',
+    scale: 3,
+    useCORS: true,
+    logging: false,
+  });
+  canvas.toBlob((blob) => {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'rinha-de-dev-cartoes.png';
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  }, 'image/png');
+}
+</script>
+
+</body>
+</html>
